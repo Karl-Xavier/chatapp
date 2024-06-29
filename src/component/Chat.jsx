@@ -24,7 +24,7 @@ const Chat = ({ toggle }) => {
   if(chats.length === 0){
     return(
       <div className='h-52 flex flex-col justify-center items-center'>
-        <h3 className='font-extrabold'>No Messages Yet</h3>
+        <h3 className='font-extrabold'>No Chats Yet</h3>
       </div>
     )
   }

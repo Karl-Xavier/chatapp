@@ -20,9 +20,15 @@ const Message = ({ message }) => {
         <span>just now</span>
       </div>
       <div className="content">
-        <p>{message.messageValue}</p>
+        {message.messageValue && <p>{message.messageValue}</p>}
         {message.imgValue && <img className="img" src={message.imgValue} alt="attached" />}
         {message.audioValue && <audio className='audio' controls src={message.audioValue} />}
+        {message.videoValue && (
+          <video className='video' controls>
+            <source src={message.videoValue} type='video/mp4' />
+            Your browser does not support the video tag.
+          </video>
+        )}
       </div>
     </div>
   );

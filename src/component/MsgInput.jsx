@@ -16,16 +16,17 @@ const MsgInput = () => {
   const [showPicker, setShowPicker] = useState(false);
   const [messageValue, setMessageValue] = useState('');
   const [imgValue, setImgValue] = useState(null);
+  const [videoValue, setVideoValue] = useState(null); // State for video
   const [audioValue, setAudioValue] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
 
   const sendMessage = async (content) => {
-    const { messageValue, imgValue, audioValue } = content;
+    const { messageValue, imgValue, videoValue, audioValue } = content; // Updated to include videoValue
 
     // Ensure there is at least one non-empty content value
-    if (!messageValue && !imgValue && !audioValue) return;
+    if (!messageValue && !imgValue && !videoValue && !audioValue) return;
 
     const messageData = {
       id: uuid(),
@@ -39,6 +40,9 @@ const MsgInput = () => {
     if (imgValue) {
       messageData.imgValue = imgValue;
     }
+    if (videoValue) {
+      messageData.videoValue = videoValue; // Save video URL to Firestore
+    }
     if (audioValue) {
       messageData.audioValue = audioValue;
     }
@@ -47,7 +51,7 @@ const MsgInput = () => {
       messages: arrayUnion(messageData),
     });
 
-    const lastMessageText = messageValue || (imgValue ? 'Image' : 'Audio');
+    const lastMessageText = messageValue || (imgValue ? 'Image' : videoValue ? 'Video' : 'Audio'); // Adjusted for video
 
     await updateDoc(doc(db, 'userChats', currentUser.uid), {
       [`${chatData.chatId}.lastMessage`]: {
@@ -70,11 +74,11 @@ const MsgInput = () => {
     }
   };
 
-  const handleSendImage = async (img) => {
-    if (img) {
+  const handleSendImage = async (file) => {
+    if (file) {
       const storageRef = ref(storage, uuid());
-      const uploadTask = uploadBytesResumable(storageRef, img);
-      const imgURL = await new Promise((resolve, reject) => {
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      const fileURL = await new Promise((resolve, reject) => {
         uploadTask.on(
           'state_changed',
           null,
@@ -90,8 +94,33 @@ const MsgInput = () => {
         );
       });
 
-      await sendMessage({ imgValue: imgURL });
+      await sendMessage({ imgValue: fileURL });
       setImgValue(null);
+    }
+  };
+
+  const handleSendVideo = async (file) => {
+    if (file) {
+      const storageRef = ref(storage, uuid());
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      const fileURL = await new Promise((resolve, reject) => {
+        uploadTask.on(
+          'state_changed',
+          null,
+          (error) => {
+            console.log(error.message);
+            reject(error);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              resolve(downloadURL);
+            });
+          }
+        );
+      });
+
+      await sendMessage({ videoValue: fileURL });
+      setVideoValue(null);
     }
   };
 
@@ -160,6 +189,17 @@ const MsgInput = () => {
     };
   }, []);
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const fileType = file.type.split('/')[0]; // Check if it's an image or video
+
+    if (fileType === 'image') {
+      handleSendImage(file);
+    } else if (fileType === 'video') {
+      handleSendVideo(file);
+    }
+  };
+
   return (
     <div className='absolute bottom-0 inputbox'>
       <Smiley color={'#01070e'} onClick={() => setShowPicker(!showPicker)} className='smile' size={42} />
@@ -180,7 +220,8 @@ const MsgInput = () => {
           type="file"
           name="attach"
           id="attach"
-          onChange={(e) => handleSendImage(e.target.files[0])}
+          accept="image/*, video/*" // Accept both images and videos
+          onChange={handleFileChange} // Handle file change for images and videos
         />
         <label htmlFor="attach">
           <PaperclipHorizontal size={32} color={'#01070e'} />

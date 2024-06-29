@@ -19,6 +19,7 @@ const Login = () => {
     const password = e.target['password'].value
     try {
       const res = await signInWithEmailAndPassword(auth, email, password)
+      toast.success("Login Successful!", {position: 'top-center'})
       navigate('/')
     } catch (error) {
       console.log(error.message)
@@ -40,9 +41,11 @@ const Login = () => {
       });
 
       await setDoc(doc(db, 'userChats', user.uid), {});
+      toast.success("Login Successful!", {position: 'top-center'})
       navigate('/')
   } catch (error) {
       console.error('Error signing up with Google:', error.message);
+      toast.error("Something went wrong", {position: 'top-center'})
   }
   }
 
