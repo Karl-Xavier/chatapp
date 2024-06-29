@@ -1,0 +1,96 @@
+.messages{
+    width: 100;
+    display: flex;
+    gap: 20px;
+    padding-right: 0;
+}
+
+.messages .info{
+    display: flex;
+    flex-direction: column;
+}
+
+.messages .info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.messages .content{
+    max-width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.messages .content p {
+    background-color: lightgray;
+    color: #000;
+    padding: 10px;
+    max-width: max-content;
+    border-radius: 0 15px 15px 15px;
+    margin-bottom: 10px;
+}
+
+.messages .content .img{
+    max-width: 60%;
+    max-height: 400px !important;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.messages .content .audio{
+    max-width: 70%;
+}
+
+.messages .content .audio::-webkit-media-controls-panel{
+    background-color: lightgray;
+}
+
+.owner{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.messages.owner .content {
+    align-items: flex-end;
+}
+
+.messages.owner .content p {
+    background-color: #01070e;
+    color: #eee;
+    padding: 10px;
+    max-width: max-content;
+    border-radius: 15px 0 15px 15px;
+    margin-bottom: 10px;
+}
+
+.messages.owner .content .audio::-webkit-media-controls-panel{
+    background-color: #01070e;
+    color: #eee !important;
+}
+
+
+.messages.owner .content audio::-webkit-media-controls-panel,
+.messages.owner .content audio::-webkit-media-controls-play-button,
+.messages.owner .content audio::-webkit-media-controls-pause-button,
+.messages.owner .content audio::-webkit-media-controls-mute-button,
+.messages.owner .content audio::-webkit-media-controls-volume-slider-container,
+.messages.owner .content audio::-webkit-media-controls-timeline,
+.messages.owner .content audio::-webkit-media-controls-current-time-display,
+.messages.owner .content audio::-webkit-media-controls-time-remaining-display,
+.messages.owner .content audio::-webkit-media-controls-seek-back-button,
+.messages.owner .content audio::-webkit-media-controls-seek-forward-button,
+.messages.owner .content audio::-webkit-media-controls-volume-slider,
+.messages.owner .content audio::-webkit-media-controls-timeline-container {
+    color: #eee; /* Set the color for the controls */
+    /* Additional styles if needed */
+}
+
+
+@media screen and (max-width: 980px) {
+    .messages .content .img{
+        max-height: 400px !important;
+    }
+}

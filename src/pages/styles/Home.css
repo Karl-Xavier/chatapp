@@ -1,0 +1,10 @@
+.homeCon{
+    background-color: #020F1C;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.row{
+    height: 100vh;
+    background-color: #01070e;
+}

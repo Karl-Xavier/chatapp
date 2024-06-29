@@ -1,0 +1,44 @@
+{
+  "name": "chat",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emoji-mart/data": "^1.2.1",
+    "@emoji-mart/react": "^1.1.1",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.20",
+    "@mui/material": "^5.15.20",
+    "@mui/styles": "^5.15.20",
+    "autoprefixer": "^10.4.19",
+    "bootstrap": "^5.3.3",
+    "emoji-mart": "^5.6.0",
+    "firebase": "^10.12.2",
+    "phosphor-react": "^1.4.1",
+    "postcss": "^8.4.38",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-loader-spinner": "^6.1.6",
+    "react-router-dom": "^6.24.0",
+    "react-toastify": "^10.0.5",
+    "tailwindcss": "^3.4.4",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "vite": "^5.3.1"
+  }
+}

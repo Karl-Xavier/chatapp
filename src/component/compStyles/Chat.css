@@ -1,0 +1,44 @@
+.chat{
+    max-height: 80vh;
+}
+
+.user{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+
+.user:hover{
+    background-color: #020407;
+}
+
+.user img{
+    width: 48px;
+    height: 48px;
+    margin: 0 5px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user .message p{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.user .message span{
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.user .message .useName{
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

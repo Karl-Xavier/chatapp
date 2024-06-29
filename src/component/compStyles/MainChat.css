@@ -1,0 +1,19 @@
+.main{
+    background-color: #eeeeee;   
+}
+
+.navigation{
+    width: 100%;
+    background-color: #01070e;
+    display: flex;
+    align-items: center;
+    padding: 3%;
+    color: #eeeeee;
+}
+
+.head{
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
