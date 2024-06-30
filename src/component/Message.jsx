@@ -13,13 +13,16 @@ const Message = ({ message }) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   }, [message]);
 
-  console.log(message);
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
 
   return (
     <div ref={ref} className={`messages mb-3 ${message.senderId === currentUser.uid && 'owner'}`}>
       <div className="info">
         <img src={message.senderId === currentUser.uid ? currentUser.photoURL : data.user.photoURL} alt="avatar" />
-        <span>just now</span>
+        <span>{formatTime(message.date)}</span>
       </div>
       <div className="content">
         {message.messageValue && <p>{message.messageValue}</p>}
