@@ -39,11 +39,20 @@ function App() {
     }
 
     if (!currentUser) {
-      return <Navigate to="/login" />;
+      return <Navigate to="/register" />;
     }
 
     return children;
-  };
+  }
+
+  const PublicRoute = ({ children })=>{
+
+    if(currentUser){
+      return <Navigate to='/'/>
+    }
+
+    return children
+  }
 
   return (
     <div className="h-screen w-full">
@@ -52,8 +61,8 @@ function App() {
         <Routes>
           <Route path="/">
             <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+            <Route path="login" element={<PublicRoute><Login /></PublicRoute>} />
+            <Route path="register" element={<PublicRoute><Register /></PublicRoute>} />
             <Route path="*" element={<Error />} />
           </Route>
         </Routes>

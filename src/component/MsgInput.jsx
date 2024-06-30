@@ -16,14 +16,14 @@ const MsgInput = () => {
   const [showPicker, setShowPicker] = useState(false);
   const [messageValue, setMessageValue] = useState('');
   const [imgValue, setImgValue] = useState(null);
-  const [videoValue, setVideoValue] = useState(null); // State for video
+  const [videoValue, setVideoValue] = useState(null); 
   const [audioValue, setAudioValue] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
 
   const sendMessage = async (content) => {
-    const { messageValue, imgValue, videoValue, audioValue } = content; // Updated to include videoValue
+    const { messageValue, imgValue, videoValue, audioValue } = content;
 
     // Ensure there is at least one non-empty content value
     if (!messageValue && !imgValue && !videoValue && !audioValue) return;

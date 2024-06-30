@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles/Register.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import TextField from '@mui/material/TextField';
@@ -12,7 +12,16 @@ import { doc, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
 const Register = () => {
+    const [avatarLabel, setAvatarLabel] = useState('Add Profile Picture');
     const navigate = useNavigate();
+
+    const handleAvatarChange = (e) => {
+        if (e.target.files[0]) {
+            setAvatarLabel(e.target.files[0].name);
+        } else {
+            setAvatarLabel('Add Profile Picture');
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,6 +29,12 @@ const Register = () => {
         const email = e.target['email'].value;
         const password = e.target['password'].value;
         const file = e.target['avatar'].files[0];
+
+        // Check if no file is selected for avatar
+        if (!file) {
+            alert('Please select an avatar image.');
+            return;
+        }
 
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -91,7 +106,7 @@ const Register = () => {
     };
 
     return (
-        <div className=' mani h-screen max-w-full flex justify-center items-center'>
+        <div className='mani h-screen max-w-full flex justify-center items-center'>
             <div className="container w-full flex flex-col justify-center items-center">
                 <form onSubmit={handleSubmit}>
                     <h1 className='text-3xl'>Create a new account</h1>
@@ -122,11 +137,11 @@ const Register = () => {
                         style={{ display: 'none' }}
                         id='avatar'
                         name='avatar'
-                        required
+                        onChange={handleAvatarChange}
                     />
                     <label htmlFor="avatar" className="avata">
                         <img src={avatar} alt="" height={40} width={40} />
-                        Add Profile Picture
+                        {avatarLabel}
                     </label>
                     <button className='btn w-52 sm:w-full mt-2' type='submit'>Sign up</button>
                     <div className="divider">
